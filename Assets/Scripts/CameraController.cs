@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour 
 {
-	j
+	
 	// Use this for initialization
 	void Start () 
 	{
