@@ -4,6 +4,7 @@ using System.Collections;
 public class CameraController : MonoBehaviour 
 {
 	public Transform target;
+
 	public  float lookSmooth = 0.09f;
 	public Vector3 offsetFromTarget = new Vector3(0,6,-8);
 	public float xTilt = 10;

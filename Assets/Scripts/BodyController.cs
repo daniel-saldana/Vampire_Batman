@@ -5,11 +5,12 @@ public class BodyController : MonoBehaviour
 {
 	public float inputDelay = 0.1f;
 	public float forwardVel = 12;
+	public float strafeVel = 12;
 	public float rotateVel = 100;
 
 	Quaternion targetRotation;
 	Rigidbody rb;
-	float forwardInput, turnInput;
+	float forwardInput, turnInput, strafeInput;
 
 	public Quaternion TargetRotation
 	{
@@ -25,7 +26,7 @@ public class BodyController : MonoBehaviour
 		else 
 				Debug.LogError("Need Rigidbody");
 			
-		forwardInput = turnInput = 0;
+		forwardInput = turnInput = strafeInput = 0;
 	}
 	
 	// Update is called once per frame
@@ -38,12 +39,14 @@ public class BodyController : MonoBehaviour
 	void FixedUpdate()
 	{
 		Run ();
+		Strafe ();
 	}
 
 	void GetInput()
 	{
 		forwardInput = Input.GetAxis("Vertical");
 		turnInput = Input.GetAxis ("Horizontal");
+		strafeInput = Input.GetAxis ("Strafe");
 	}
 
 	void Run()
@@ -51,8 +54,9 @@ public class BodyController : MonoBehaviour
 		if (Mathf.Abs (forwardInput) > inputDelay) 
 		{
 			rb.velocity = transform.forward * forwardInput * forwardVel;
-		} else
-			rb.velocity = Vector3.zero;
+		} 
+		else
+		rb.velocity = Vector3.zero;
 	}
 
 	void Turn()
@@ -63,5 +67,13 @@ public class BodyController : MonoBehaviour
 		}
 		transform.rotation = targetRotation;
 	}
-
+		
+	void Strafe()
+	{
+		if (Mathf.Abs (strafeInput) >inputDelay)
+			{
+				rb.velocity = transform.right * strafeInput * strafeVel;
+			}
+	}
+		
 }
