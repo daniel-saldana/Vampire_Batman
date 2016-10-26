@@ -5,6 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(Camera))]
 public class SonarFx : MonoBehaviour
 {
+
     // Sonar mode (directional or spherical)
     public enum SonarMode { Directional, Spherical }
     [SerializeField] SonarMode _mode = SonarMode.Directional;
@@ -79,7 +80,7 @@ public class SonarFx : MonoBehaviour
 
     void Update()
     {
-        _origin = new Vector3(transform.position.x ,0, transform.position.z);
+        _origin = new Vector3(transform.position.x ,0,transform.position.z + 1);
 
         Shader.SetGlobalColor(baseColorID, _baseColor);
         Shader.SetGlobalColor(waveColorID, _waveColor);
