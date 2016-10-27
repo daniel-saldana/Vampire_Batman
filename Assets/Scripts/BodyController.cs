@@ -80,10 +80,9 @@ public class BodyController : MonoBehaviour
 		
 	void Strafe()
 	{
-		if (Mathf.Abs (strafeInput) >inputDelay)
-			{
-				rb.velocity = transform.right * strafeInput * forwardVel;
-			}
+		if (Mathf.Abs (strafeInput) > inputDelay) {
+			rb.velocity = transform.right * strafeInput * forwardVel;
+		} 
 	}
 
 	void Dash()
