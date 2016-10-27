@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour 
 {
+	/*
 	public Transform target;
 
 	public  float lookSmooth = 0.09f;
@@ -59,5 +60,5 @@ public class CameraController : MonoBehaviour
 		float eulerYAngle = Mathf.SmoothDampAngle (transform.eulerAngles.y, target.eulerAngles.y, ref rotateVel, lookSmooth);
 		transform.rotation = Quaternion.Euler (transform.eulerAngles.x, eulerYAngle, 0);
 	}
-
+*/
 }
