@@ -28,7 +28,7 @@ namespace Assets.Scripts.Models
         public List<AudioClip> Clips;
         private List<GameObject> _sources;
 
-        public ExtendedSounds()
+        public void ExtendedSounds()
         {
             Clips = new List<AudioClip>();
             _sources = new List<GameObject>();
@@ -60,8 +60,9 @@ namespace Assets.Scripts.Models
             {
                 source.GetComponent<AudioSource>().panStereo = Pan;
                 source.GetComponent<AudioSource>().volume = Volume;
-                source.Play();
+                
             }
+            
             _currentDelay = 0;
         }
 
@@ -71,6 +72,3 @@ namespace Assets.Scripts.Models
         }
     }
 }
-    }
-}
-

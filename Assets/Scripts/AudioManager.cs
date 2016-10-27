@@ -9,7 +9,7 @@ namespace Assets.Scripts.Managers
 {
     public class AudioManager : MonoBehaviour
     {
-        public List<ExtendedSounds> BackgroundSounds;
+        public List<Audio> BackgroundSounds;
 
         public ExtendedSounds LoopingClipSounds;
 
