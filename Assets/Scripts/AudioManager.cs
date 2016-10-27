@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Managers
 {
+	/*
     public class AudioManager : MonoBehaviour
     {
         public List<Audio> BackgroundSounds;
@@ -140,5 +141,6 @@ namespace Assets.Scripts.Managers
 
         #endregion
     }
+    */
 }
 

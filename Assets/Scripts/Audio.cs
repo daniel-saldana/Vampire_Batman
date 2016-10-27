@@ -21,14 +21,27 @@ namespace Assets.Scripts.Models
 
         public float DelayMin = 2f;
         public float DelayMax = 10f;
-        public float Delay;
+        public float Delay = 0.0f;
 
-        private float _currentDelay;
+		private float _currentDelay = 0.0f;
 
         public List<AudioClip> Clips;
         private List<GameObject> _sources;
 
+<<<<<<< HEAD
         public void ExtendedSounds()
+=======
+		void Start()
+		{
+			
+		}
+
+		void Update()
+		{
+			
+		}
+        public  void ExtendedSounds()
+>>>>>>> develop
         {
             Clips = new List<AudioClip>();
             _sources = new List<GameObject>();
@@ -36,7 +49,7 @@ namespace Assets.Scripts.Models
 
         public void UpdateCurrentDelay(float delay)
         {
-            _currentDelay += delay;
+            _currentDelay += Delay;
         }
 
         public bool CanPlay()
@@ -60,7 +73,11 @@ namespace Assets.Scripts.Models
             {
                 source.GetComponent<AudioSource>().panStereo = Pan;
                 source.GetComponent<AudioSource>().volume = Volume;
+<<<<<<< HEAD
                 
+=======
+                //source.Play();
+>>>>>>> develop
             }
             
             _currentDelay = 0;
@@ -70,5 +87,15 @@ namespace Assets.Scripts.Models
         {
             _sources.Add(soundObject);
         }
+<<<<<<< HEAD
     }
 }
+=======
+
+		void Play()
+		{
+			
+		}
+}
+}
+>>>>>>> develop
