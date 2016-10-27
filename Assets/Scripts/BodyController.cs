@@ -5,8 +5,16 @@ public class BodyController : MonoBehaviour
 {
 	public float inputDelay = 0.1f;
 	public float forwardVel = 12;
-	public float strafeVel = 12;
+	public float defaultVel = 12;
 	public float rotateVel = 100;
+	public float dashVel = 25;
+	public float gravity = -9.8f;
+	public float dashlength = 1.0f;
+
+	public bool dashReady = false;
+	public bool dashing = false;
+
+	public float dashTimer = 0.0f;
 
 	Quaternion targetRotation;
 	Rigidbody rb;
@@ -40,6 +48,8 @@ public class BodyController : MonoBehaviour
 	{
 		Run ();
 		Strafe ();
+		Dash ();
+		Gravity ();
 	}
 
 	void GetInput()
@@ -72,8 +82,35 @@ public class BodyController : MonoBehaviour
 	{
 		if (Mathf.Abs (strafeInput) >inputDelay)
 			{
-				rb.velocity = transform.right * strafeInput * strafeVel;
+				rb.velocity = transform.right * strafeInput * forwardVel;
 			}
 	}
-		
+
+	void Dash()
+	{
+		if (dashReady == true) 
+		{
+			if (Input.GetKeyDown (KeyCode.LeftShift) && dashReady == true) 
+			{
+				dashing = true;
+			}
+		}
+		if (dashing == true) 
+		{
+			dashTimer += Time.deltaTime;
+			forwardVel = dashVel;
+		}
+		if (dashTimer > dashlength) 
+		{
+			dashTimer = 0.0f;
+			forwardVel = defaultVel;
+			dashReady = false;
+			dashing = false;
+		}
+	}
+
+	void Gravity()
+	{
+		rb.AddForce (0, gravity, 0, ForceMode.Impulse);
+	}
 }
