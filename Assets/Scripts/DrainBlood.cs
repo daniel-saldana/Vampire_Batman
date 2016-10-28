@@ -24,7 +24,7 @@ public class DrainBlood : MonoBehaviour
 		ps = FindObjectOfType<PlayerState>();
 
 		es = FindObjectOfType<EnemySight> ();
-		enemy = GameObject.FindGameObjectsWithTag ("Enemy") ();
+		enemy = GameObject.FindGameObjectsWithTag ("Enemy");
 
 	}
 	
