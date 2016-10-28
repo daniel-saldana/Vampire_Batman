@@ -12,6 +12,8 @@ public class EnemySight : MonoBehaviour
     public float lineOfSight = 3.5f;
     public float maxSight = 8;
 
+    public int enemyHealth = 5;
+
     public int moveSpeed;
 
     private Transform myTransform;
