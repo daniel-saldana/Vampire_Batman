@@ -12,7 +12,7 @@ public class EnemySight : MonoBehaviour
     public float lineOfSight = 3.5f;
     public float maxSight = 8;
 
-    public int enemyHealth = 5;
+    public float enemyHealth = 5;
 
     public int moveSpeed;
 
@@ -34,6 +34,12 @@ public class EnemySight : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+
+		if(enemyHealth < 0.1f)
+		{
+			Destroy(gameObject);
+		}
+
         if (!seePlayer)
         {
             transform.Rotate(0, turnSpeed, 0);
