@@ -1,146 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Models;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
+using System.Collections;
 
-namespace Assets.Scripts.Managers
+namespace Completed
 {
-	/*
     public class AudioManager : MonoBehaviour
     {
-        public List<Audio> BackgroundSounds;
+        public AudioSource efxSource;                   //Drag a reference to the audio source which will play the sound effects.
+        public AudioSource musicSource;                 //Drag a reference to the audio source which will play the music.
+        public static AudioManager instance = null;     //Allows other scripts to call functions from SoundManager.             
+        public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
+        public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
-        public ExtendedSounds LoopingClipSounds;
 
-        private List<GameObject> _loopingSounds;
-        private GameObject _currentLoopingSound;
-        private int _currentLoopingSoundIndex;
-
-        public bool IsLoopingSoundsActive;
-        public bool IsBackgroundSoundsActive;
-
-        public GameObject SoundPrefab;
-
-        #endregion
-
-        #region Initialization
-
-        public void Awake()
+        void Awake()
         {
-            if (_loopingSounds == null)
-                _loopingSounds = new List<GameObject>();
+            //Check if there is already an instance of SoundManager
+            if (instance == null)
+                //if not, set it to this.
+                instance = this;
+            //If instance already exists:
+            else if (instance != this)
+                //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
+                Destroy(gameObject);
 
-            if (BackgroundSounds == null)
-                BackgroundSounds = new List<ExtendedSounds>();
+            //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
+            DontDestroyOnLoad(gameObject);
         }
 
-        public void Start()
-        {
-            foreach (var loopingClipSound in LoopingClipSounds.Clips)
-            {
-                GameObject soundObject = Instantiate(SoundPrefab) as GameObject;
-                if (soundObject != null)
-                {
-                    soundObject.GetComponent<AudioSource>().clip = loopingClipSound;
-                    _loopingSounds.Add(soundObject);
-                }
-            }
 
-            InitializeBackgroundSounds();
+        //Used to play single sound clips.
+        public void PlaySingle(AudioClip clip)
+        {
+            //Set the clip of our efxSource audio source to the clip passed in as a parameter.
+            efxSource.clip = clip;
+
+            //Play the clip.
+            efxSource.Play();
         }
 
-        private void InitializeBackgroundSounds()
+
+        //RandomizeSfx chooses randomly between various audio clips and slightly changes their pitch.
+        public void RandomizeSfx(params AudioClip[] clips)
         {
-            foreach (var backgroundSound in BackgroundSounds)
-            {
-                foreach (var clip in backgroundSound.Clips)
-                {
-                    GameObject soundObject = Instantiate(SoundPrefab) as GameObject;
-                    if (soundObject != null)
-                    {
-                        soundObject.GetComponent<AudioSource>().clip = clip;
-                        backgroundSound.AddSource(soundObject);
-                    }
-                }
-            }
+            //Generate a random number between 0 and the length of our array of clips passed in.
+            int randomIndex = Random.Range(0, clips.Length);
+
+            //Choose a random pitch to play back our clip at between our high and low pitch ranges.
+            float randomPitch = Random.Range(lowPitchRange, highPitchRange);
+
+            //Set the pitch of the audio source to the randomly chosen pitch.
+            efxSource.pitch = randomPitch;
+
+            //Set the clip to the clip at our randomly chosen index.
+            efxSource.clip = clips[randomIndex];
+
+            //Play the clip.
+            efxSource.Play();
         }
-
-        #endregion
-
-        #region Update
-
-        public void Update()
-        {
-            if (IsLoopingSoundsActive && _loopingSounds.Count > 0)
-            {
-                var needToPlay = false;
-
-                // No current sound
-                if (_currentLoopingSound == null)
-                {
-                    _currentLoopingSoundIndex = 0;
-                    needToPlay = true;
-                }
-                else
-                {
-                    // Need to play the next sound
-                    if (!_currentLoopingSound.GetComponent<AudioSource>().isPlaying)
-                    {
-                        needToPlay = true;
-                        _currentLoopingSoundIndex++;
-
-                        // Loop to the first item
-                        if (_currentLoopingSoundIndex >= _loopingSounds.Count)
-                        {
-                            _currentLoopingSoundIndex = 0;
-                        }
-                    }
-                }
-
-                if (needToPlay)
-                {
-                    _currentLoopingSound = _loopingSounds.ElementAtOrDefault(_currentLoopingSoundIndex);
-                    if (_currentLoopingSound != null)
-                    {
-                        _currentLoopingSound.GetComponent<AudioSource>().panStereo = LoopingClipSounds.Pan;
-                        _currentLoopingSound.GetComponent<AudioSource>().volume = LoopingClipSounds.Volume;
-                        _currentLoopingSound.Play();
-                    }
-                }
-            }
-            else
-            {
-                // Pause current sound
-                if (_currentLoopingSound != null)
-                    _currentLoopingSound.GetComponent<AudioSource>().Pause();
-            }
-
-            if (IsBackgroundSoundsActive)
-            {
-                foreach (var backgroundSound in BackgroundSounds)
-                {
-                    if (backgroundSound.Delay <= 0f)
-                    {
-                        backgroundSound.Delay = Random.Range(backgroundSound.DelayMin, backgroundSound.DelayMax);
-                    }
-                    else
-                    {
-                        backgroundSound.UpdateCurrentDelay(Time.deltaTime);
-
-                        if (!backgroundSound.CanPlay())
-                            continue;
-
-                        backgroundSound.Delay = Random.Range(backgroundSound.DelayMin, backgroundSound.DelayMax);
-                        backgroundSound.RandomPlay();
-                    }
-                }
-            }
-        }
-
-        #endregion
     }
-    */
 }
-
