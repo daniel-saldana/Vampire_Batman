@@ -8,23 +8,25 @@ public class LightDamage : MonoBehaviour
     public bool seen;
     BodyController bc;
 
-    PlayerState ps;
+	SwitchPlayer sp;
+
 	// Use this for initialization
 	void Start ()
     {
-        ps = FindObjectOfType<PlayerState>();
         bc = FindObjectOfType<BodyController>();
+		sp = FindObjectOfType<SwitchPlayer> ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(seen)
-        {
-            bc.health.CurrentVal -= 5 * Time.deltaTime; 
-
-        }
-
+		if (seen) 
+		{
+			if (sp.mistForm == false) 
+			{
+				bc.health.CurrentVal -= 5 * Time.deltaTime; 
+			}
+		}
         Vector3 fromPosition = transform.position;
         Vector3 toPosition = player.transform.position;
         Vector3 direction = toPosition - fromPosition;
