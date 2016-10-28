@@ -28,8 +28,9 @@ public class SwitchPlayer : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
+            mistForm = false;
 			if (bodCon.batMana.CurrentVal > 0.1f) 
 			{
 				if (playerS != 1) 
@@ -57,6 +58,8 @@ public class SwitchPlayer : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.E))
 		{
+            batForm = false;
+
 			if (bodCon.mistMana.CurrentVal > 0.1f) 
 			{
 				if (playerS != 2) 

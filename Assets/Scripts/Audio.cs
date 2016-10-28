@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Managers;
 using UnityEngine;
@@ -98,4 +98,4 @@ namespace Assets.Scripts.Models
 		}
 }
 }
->>>>>>> develop
+>>>>>>> develop*/
