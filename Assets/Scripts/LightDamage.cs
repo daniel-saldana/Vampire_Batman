@@ -18,7 +18,7 @@ public class LightDamage : MonoBehaviour
     {
         if(seen)
         {
-            bc.health.CurrentVal -= Time.deltaTime; 
+            bc.health.CurrentVal -= 5 * Time.deltaTime; 
 
         }
 

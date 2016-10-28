@@ -11,3 +11,7 @@
 - Character/ Camera Controller *Daniel*//
 - Dash Ability *Daniel*
 - UI/ Mana & Health bars *Daniel*
+
+- check render tag ; if enemy, render to new color
+sonarFx script
+sonarEditor 

@@ -18,10 +18,12 @@ public class BodyController : MonoBehaviour
 	*/
 	public float dashTimer = 0.0f;
 
+	public float floatSpeed = 0.0f;
+
 	public float dashlength = 1.0f;
 	public float dashVel = 25;
-	public float forwardVel = 12;
-	public float defaultVel = 12;
+	//public float forwardVel = 12;
+	//public float defaultVel = 12;
 	public bool dashReady = false;
 	public bool dashing = false;
 	public Stat health;
@@ -29,6 +31,7 @@ public class BodyController : MonoBehaviour
 	public Stat dashMana;
 	public Stat mistMana;
 
+	public SwitchPlayer sp;
 	/*public Quaternion TargetRotation
 	{
 		get{ return targetRotation; }
@@ -37,6 +40,9 @@ public class BodyController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		sp = FindObjectOfType<SwitchPlayer> ();
+		floatSpeed = floatSpeed * Time.deltaTime;
+		dashVel = dashVel * Time.deltaTime;
 		/*
 		targetRotation = transform.rotation;
 		if (GetComponent<Rigidbody>())
@@ -61,6 +67,8 @@ public class BodyController : MonoBehaviour
 
     public void Update()
     {
+		Dash ();
+		MistControl ();
         if(health.CurrentVal < 0.1f)
         {
             SceneManager.LoadScene("GameOverScene");
@@ -123,28 +131,56 @@ public class BodyController : MonoBehaviour
 		}
 		if (dashReady == true) 
 		{
-			if (Input.GetKeyDown (KeyCode.LeftShift) && dashReady == true) 
+			if (sp.mistForm == false && sp.batForm == false) 
 			{
-				dashing = true;
+				if (Input.GetKeyDown (KeyCode.LeftShift) && dashReady == true) 
+				{
+					dashing = true;
+				}
 			}
 		}
 		if (dashing == true) 
 		{
 			dashTimer += Time.deltaTime;
 			dashMana.CurrentVal -= Time.deltaTime;
-			forwardVel = dashVel;
+			if (Input.GetKey(KeyCode.W))
+			{
+				transform.Translate (Vector3.forward * dashVel);
+			}
+			if (Input.GetKey (KeyCode.S)) {
+				transform.Translate (Vector3.back * dashVel);
+			}
+			if (Input.GetKey (KeyCode.A)) {
+				transform.Translate (Vector3.left * dashVel);
+			}
+			if (Input.GetKey(KeyCode.D)) 
+			{
+				transform.Translate (Vector3.right * dashVel);
+			}
+
 		}
 
 		if (dashTimer > dashlength) 
 		{
 			dashTimer = 0.0f;
-			forwardVel = defaultVel;
+			//forwardVel = defaultVel;
 			dashReady = false;
 			dashing = false;
 		}
 		if (dashMana.CurrentVal <= 0.1f) 
 		{
 			dashReady = false;
+		}
+	}
+
+	void MistControl()
+	{
+		if (sp.mistForm == true) 
+		{
+			if (Input.GetKey (KeyCode.Space)) 
+			{
+				transform.Translate (Vector3.up * floatSpeed);
+			}
 		}
 	}
 		/*
