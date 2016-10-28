@@ -1,16 +1,16 @@
 - AI Functionality (Attacks/ Alarms) *Antonio*/
-- Audio Manager *Antonio*
-- Menus *Antonio*
+- Audio Manager *Antonio*/
+- Menus *Antonio*//
 
 - Bat/ Echo Location *Oscar*/
-- Transform to Mist *Oscar*
+- Transform to Mist *Oscar*//
 - Character Attack *Oscar*
 
-- Level Design *Daniel* / *Oscar*
+- Level Design *Daniel* / *Oscar*//
 
 - Character/ Camera Controller *Daniel*//
-- Dash Ability *Daniel*
-- UI/ Mana & Health bars *Daniel*
+- Dash Ability *Daniel*//
+- UI/ Mana & Health bars *Daniel*//
 
 - check render tag ; if enemy, render to new color
 sonarFx script
