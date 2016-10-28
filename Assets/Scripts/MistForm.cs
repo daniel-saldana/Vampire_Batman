@@ -27,11 +27,18 @@ public class MistForm : MonoBehaviour {
             {
                 sunDamage.SetActive(true);
             }
+            else
+            {
+                sunDamage.SetActive(false);
+            }
         }
-        else
+
+        if (!ld.seen)
         {
             sunDamage.SetActive(false);
         }
+
+        
 
 
 	if(ps.currentState == PlayerState.StateOfPlayer.Mist)
