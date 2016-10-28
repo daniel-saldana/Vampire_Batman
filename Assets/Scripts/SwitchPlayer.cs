@@ -16,14 +16,19 @@ public class SwitchPlayer : MonoBehaviour
 
 	public BodyController bodCon;
 
+    public AudioSource wings;
+    public AudioSource wind;
+
 	// Use this for initialization
 	void Start ()
     {
         state = FindObjectOfType<PlayerState>();
 		bodCon = FindObjectOfType<BodyController> ();
-		//bodCon.batMana.CurrentVal = batTimer;
-       // state.currentState = PlayerState.StateOfPlayer.Body;
-	}
+        wings = FindObjectOfType<AudioSource>();
+        wind = FindObjectOfType<AudioSource>();
+        //bodCon.batMana.CurrentVal = batTimer;
+        // state.currentState = PlayerState.StateOfPlayer.Body;
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -36,11 +41,13 @@ public class SwitchPlayer : MonoBehaviour
 				{
 					playerS = 1;
 					batForm = true;
-				} 
+                    wings.Play();
+                } 
 				else 
 				{
 					playerS = 0;
 					batForm = false;
+                    wings.Stop();
 				}
 			}
 
@@ -63,11 +70,13 @@ public class SwitchPlayer : MonoBehaviour
 				{
 					playerS = 2;
 					mistForm = true;
+                    wind.Play();
 				} 
 				else 
 				{
 					playerS = 0;
 					mistForm = false;
+                    wind.Stop();
 				}
 			}
 
