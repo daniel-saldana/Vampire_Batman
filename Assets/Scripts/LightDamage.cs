@@ -7,9 +7,12 @@ public class LightDamage : MonoBehaviour
 
     public bool seen;
     BodyController bc;
+
+    PlayerState ps;
 	// Use this for initialization
 	void Start ()
     {
+        ps = FindObjectOfType<PlayerState>();
         bc = FindObjectOfType<BodyController>();
 	}
 	
@@ -18,12 +21,11 @@ public class LightDamage : MonoBehaviour
     {
         if(seen)
         {
-            bc.health.CurrentVal -= Time.deltaTime; 
-
+            if(ps.currentState != PlayerState.StateOfPlayer.Mist)
+            {
+                bc.health.CurrentVal -= Time.deltaTime;
+            }
         }
-
-
-        // transform.LookAt(player);
 
         Vector3 fromPosition = transform.position;
         Vector3 toPosition = player.transform.position;
