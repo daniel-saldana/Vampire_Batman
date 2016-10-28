@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BodyController : MonoBehaviour 
 {
@@ -57,6 +58,14 @@ public class BodyController : MonoBehaviour
 	}
 
 	// Update is called once per frame
+
+    public void Update()
+    {
+        if(health.CurrentVal < 0.1f)
+        {
+            SceneManager.LoadScene("GameOverScene");
+        }
+    }
 	/*
 	void Update () 
 	{
