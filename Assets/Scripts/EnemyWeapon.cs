@@ -5,9 +5,11 @@ public class EnemyWeapon : MonoBehaviour {
     public GameObject[] weaponPlacements = null;
     public GameObject weaponPrefab = null;
 
-    public float crossFireRate = 0.2f;
+	public float crossFireRate = 2.5f;
     public bool canShoot = true;
     public float crossCooldownTimer = 0.0f;
+
+	EnemySight eS;
 
     public AudioSource cross;
 
@@ -15,12 +17,14 @@ public class EnemyWeapon : MonoBehaviour {
     void Start()
     {
         cross = FindObjectOfType<AudioSource>();
+		eS = GetComponent<EnemySight> ();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<EnemySight>().seePlayer == true)
+		crossCooldownTimer += Time.deltaTime;
+        if (eS.seePlayer == true)
         {
             if (canShoot == true)
             {
@@ -30,13 +34,14 @@ public class EnemyWeapon : MonoBehaviour {
                 for (int i = 0; i < weaponPlacements.Length; i++)
                 {
                     Instantiate(weaponPrefab, weaponPlacements[i].transform.position, Quaternion.identity);
-                    canShoot = false;
                     cross.Stop();
+					crossCooldownTimer = 0.0f;
                 }
+				canShoot = false;
             }
-            else
+            
             {
-                crossCooldownTimer += Time.deltaTime;
+                //crossCooldownTimer += Time.deltaTime;
                 if (crossCooldownTimer >= crossFireRate)
                 {
 

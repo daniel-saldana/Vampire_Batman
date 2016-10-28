@@ -70,12 +70,13 @@ public class EnemySight : MonoBehaviour
 			RaycastHit hit;
 
 			if (Physics.Raycast (transform.position, (player.transform.position - transform.position).normalized, out hit, maxSight)) {
-				if (hit.collider.name == "Player")
+				if (hit.collider.name.StartsWith ("Player"))
 					seePlayer = true;
+				Debug.Log ("IsEEYou");
 				bells.Play ();
 				{
 					//else
-					seePlayer = false;
+					//seePlayer = true;
 					bells.Stop ();
 					myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
 				}
