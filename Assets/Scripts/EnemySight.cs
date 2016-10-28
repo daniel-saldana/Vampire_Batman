@@ -12,7 +12,11 @@ public class EnemySight : MonoBehaviour
     public float lineOfSight = 3.5f;
     public float maxSight = 8;
 
+    public int enemyHealth = 5;
+
     public int moveSpeed;
+
+    public AudioSource bells;
 
     private Transform myTransform;
     void Awake ()
@@ -23,6 +27,7 @@ public class EnemySight : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        bells = FindObjectOfType<AudioSource>();
 	
 	}
 	
@@ -53,9 +58,14 @@ public class EnemySight : MonoBehaviour
             {
                 if (hit.collider.name == "Player")
                     seePlayer = true;
-                else
+                bells.Play();
+                {
+                     //else
                     seePlayer = false;
-                myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                    bells.Stop();
+                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+                }
+               
             }
             else
                 seePlayer = false;
