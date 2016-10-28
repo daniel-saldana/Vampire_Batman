@@ -32,6 +32,12 @@ public class MistForm : MonoBehaviour {
                 sunDamage.SetActive(false);
             }
         }
+
+        if (!ld.seen)
+        {
+            sunDamage.SetActive(false);
+        }
+
         
 
 
