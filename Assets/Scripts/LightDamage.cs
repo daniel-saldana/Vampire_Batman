@@ -5,6 +5,8 @@ public class LightDamage : MonoBehaviour
 {
     public Transform player;
 
+	public float damage = 5;
+
     public bool seen;
     BodyController bc;
 
@@ -15,6 +17,7 @@ public class LightDamage : MonoBehaviour
     {
         bc = FindObjectOfType<BodyController>();
 		sp = FindObjectOfType<SwitchPlayer> ();
+		damage = 5;
 	}
 	
 	// Update is called once per frame
@@ -24,7 +27,7 @@ public class LightDamage : MonoBehaviour
 		{
 			if (sp.mistForm == false) 
 			{
-				bc.health.CurrentVal -= 5 * Time.deltaTime; 
+				bc.health.CurrentVal -= damage * Time.deltaTime; 
 			}
 		}
         Vector3 fromPosition = transform.position;

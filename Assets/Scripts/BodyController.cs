@@ -18,6 +18,8 @@ public class BodyController : MonoBehaviour
 	*/
 	public float dashTimer = 0.0f;
 
+	public float lightDefense = 0.0f;
+
 	public float floatSpeed = 0.0f;
 
 	public float dashlength = 1.0f;
@@ -32,6 +34,10 @@ public class BodyController : MonoBehaviour
 	public Stat mistMana;
 
 	public SwitchPlayer sp;
+
+	public LightDamage lD;
+
+	EnemySight es;
 	/*public Quaternion TargetRotation
 	{
 		get{ return targetRotation; }
@@ -40,6 +46,8 @@ public class BodyController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		lD = FindObjectOfType<LightDamage> ();
+		es = FindObjectOfType<EnemySight> ();
 		sp = FindObjectOfType<SwitchPlayer> ();
 		floatSpeed = floatSpeed * Time.deltaTime;
 		dashVel = dashVel * Time.deltaTime;
@@ -67,6 +75,8 @@ public class BodyController : MonoBehaviour
 
     public void Update()
     {
+		LightShield ();
+		Feed ();
 		Dash ();
 		MistControl ();
         if(health.CurrentVal < 0.1f)
@@ -183,9 +193,45 @@ public class BodyController : MonoBehaviour
 			}
 		}
 	}
+
+	void Feed()
+	{
+		if (Input.GetMouseButton (0)) {
+			if (es.inRange == true) 
+			{
+				es.takingDamage = true;
+				health.CurrentVal += Time.deltaTime * 2;
+				batMana.CurrentVal += Time.deltaTime * 2;
+				dashMana.CurrentVal += Time.deltaTime;
+				mistMana.CurrentVal += Time.deltaTime * 2;
+				lightDefense += Time.deltaTime;
+			}
+		} else
+			es.takingDamage = false;
+	}
+
+	void LightShield()
+	{
+		if (lightDefense >= 5) {
+			lD.damage = 4;
+		}
+		if (lightDefense >= 10) {
+			lD.damage = 3;
+		}
+		if (lightDefense >= 15) {
+			lD.damage = 2;
+		}
+		if (lightDefense >= 20) {
+			lD.damage = 0.5f;
+		}
+		if (lightDefense >= 25) {
+			lD.damage = 0;
+		}
+	}
+}
 		/*
 	void Gravity()
 	{
 		rb.AddForce (0, gravity, 0, ForceMode.Impulse);
 	}*/
-}
+

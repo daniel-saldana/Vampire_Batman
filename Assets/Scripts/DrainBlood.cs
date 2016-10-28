@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DrainBlood : MonoBehaviour 
 {
-
+	/*
 	public GameObject[] enemy;
 
 	BodyController bc;
@@ -24,8 +24,6 @@ public class DrainBlood : MonoBehaviour
 		ps = FindObjectOfType<PlayerState>();
 
 		es = FindObjectOfType<EnemySight> ();
-		enemy = GameObject.FindGameObjectsWithTag ("Enemy") ();
-
 	}
 	
 	// Update is called once per frame
@@ -46,5 +44,5 @@ public class DrainBlood : MonoBehaviour
 				}
 			}
 		}
-	}
+	}*/
 }

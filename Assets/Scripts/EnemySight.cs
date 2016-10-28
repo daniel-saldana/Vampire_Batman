@@ -19,6 +19,16 @@ public class EnemySight : MonoBehaviour
     public AudioSource bells;
 
     private Transform myTransform;
+
+	public Transform playerBody;
+
+	public bool inRange = false;
+
+	public bool takingDamage = false;
+
+	public float dist;
+
+
     void Awake ()
     {
         myTransform = transform;
@@ -28,54 +38,68 @@ public class EnemySight : MonoBehaviour
 	void Start ()
     {
         bells = FindObjectOfType<AudioSource>();
-	
+		//float dist = Vector3.Distance(playerBody.position, transform.position);
 	}
 	
 	// Update is called once per frame
 	void Update ()
-    {
-
-		if(enemyHealth < 0.1f)
+	{
+		//float dist = Vector3.Distance(playerBody.position, transform.position);
+		DrainBlood ();
+		if (enemyHealth < 0.1f) 
 		{
-			Destroy(gameObject);
+			inRange = false;
+			takingDamage = false;
+			Destroy (gameObject);
 		}
 
-        if (!seePlayer)
-        {
-            transform.Rotate(0, turnSpeed, 0);
+		if (!seePlayer) {
+			transform.Rotate (0, turnSpeed, 0);
 
-            if ((transform.rotation.eulerAngles.y > maxTurn && transform.rotation.eulerAngles.y < 180) ||
-                (transform.rotation.eulerAngles.y < 360 - maxTurn && transform.rotation.eulerAngles.y > 180))
-            {
-                turnSpeed *= -1;
-            }
-        }
-        else
-            transform.LookAt(player.transform);
+			if ((transform.rotation.eulerAngles.y > maxTurn && transform.rotation.eulerAngles.y < 180) ||
+			             (transform.rotation.eulerAngles.y < 360 - maxTurn && transform.rotation.eulerAngles.y > 180)) {
+				turnSpeed *= -1;
+			}
+		} else
+			transform.LookAt (player.transform);
 
-        Vector3 sight = player.transform.position - transform.position;
-        float dot = Vector3.Dot(sight, transform.right);
+		Vector3 sight = player.transform.position - transform.position;
+		float dot = Vector3.Dot (sight, transform.right);
 
-        if(dot < lineOfSight && dot > -lineOfSight)
-        {
-            RaycastHit hit;
+		if (dot < lineOfSight && dot > -lineOfSight) {
+			RaycastHit hit;
 
-            if (Physics.Raycast(transform.position, (player.transform.position - transform.position).normalized, out hit, maxSight))
-            {
-                if (hit.collider.name == "Player")
-                    seePlayer = true;
-                bells.Play();
-                {
-                     //else
-                    seePlayer = false;
-                    bells.Stop();
-                    myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
-                }
+			if (Physics.Raycast (transform.position, (player.transform.position - transform.position).normalized, out hit, maxSight)) {
+				if (hit.collider.name == "Player")
+					seePlayer = true;
+				bells.Play ();
+				{
+					//else
+					seePlayer = false;
+					bells.Stop ();
+					myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+				}
                
-            }
-            else
-                seePlayer = false;
+			} else
+				seePlayer = false;
             
-        }
+		}
+	}
+		void DrainBlood()
+	{
+		float dist = Vector3.Distance (playerBody.position, transform.position);
+		if (dist < 2.5) {
+			inRange = true;
+			print ("Distance to other: " + dist);
+		} else if (dist > 2.5) {
+			inRange = false;
+		}
+		if (takingDamage == true) {
+			moveSpeed = 0;
+			transform.position = transform.position;
+			this.enemyHealth -= Time.deltaTime;
+		} else if (inRange == false) {
+			takingDamage = false;
+		}
 	}
 }

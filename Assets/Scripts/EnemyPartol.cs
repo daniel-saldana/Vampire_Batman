@@ -7,7 +7,6 @@ public class EnemyPartol : MonoBehaviour
     private int destPoint = 0;
     private NavMeshAgent agent;
 
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -40,7 +39,9 @@ public class EnemyPartol : MonoBehaviour
     {
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if (agent.remainingDistance < 0.5f)
-            GotoNextPoint();
+		if (agent.remainingDistance < 0.5f) 
+		{
+				GotoNextPoint ();
+		}
     }
 }
